@@ -1,0 +1,58 @@
+﻿using HarmonyLib;
+using Hazel;
+using System;
+using SuperNewRoles.Patches;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using SuperNewRoles.Buttons;
+using SuperNewRoles.CustomOption;
+
+namespace SuperNewRoles.Roles
+{
+    class Clergyman
+    {
+
+        public static void ResetCoolDown()
+        {
+            HudManagerStartPatch.ClergymanLightOutButton.MaxTimer = RoleClass.Clergyman.CoolTime;
+            RoleClass.Clergyman.ButtonTimer = DateTime.Now;
+        }
+        public static bool isClergyman(PlayerControl Player)
+        {
+            if (RoleClass.Clergyman.ClergymanPlayer.IsCheckListPlayerControl(Player))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static void LightOutStart()
+        {
+            MessageWriter RPCWriter = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.CustomRPC.RPCClergymanLightOut, Hazel.SendOption.Reliable, -1);
+            RPCWriter.Write(true);
+            AmongUsClient.Instance.FinishRpcImmediately(RPCWriter);
+        }
+        public static bool IsLightOutVision() {
+            if (!(RoleClass.Clergyman.OldButtonTime > 0)) return false;
+            if (CountChanger.GetRoleType(PlayerControl.LocalPlayer) == TeamRoleType.Impostor) return true;
+            return false;
+        }
+        public static void LightOutStartRPC()
+        {
+            if (IsLightOutVision())
+            {
+                new CustomMessage(ModTranslation.getString("ClergymanLightOutMessage"), RoleClass.Clergyman.DurationTime);
+            }
+            RoleClass.Clergyman.OldButtonTimer = DateTime.Now;
+        }
+        public static void EndMeeting()
+        {
+            HudManagerStartPatch.ClergymanLightOutButton.MaxTimer = RoleClass.Clergyman.CoolTime;
+            RoleClass.Clergyman.ButtonTimer = DateTime.Now;
+            RoleClass.Clergyman.IsLightOff = false;
+        }
+    }
+}
