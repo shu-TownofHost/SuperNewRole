@@ -216,13 +216,13 @@ namespace SuperNewRoles.CustomRPC
             if (sheriff == null || target == null) return;
             if (!PlayerControl.LocalPlayer.isAlive())
             {
-                DestroyableSingleton<HudManager>.Instance.Chat.AddChat(sheriff, sheriff.name + "‚Í" + target.name + "‚ğƒVƒFƒŠƒtƒLƒ‹‚µ‚½I");
+                DestroyableSingleton<HudManager>.Instance.Chat.AddChat(sheriff, sheriff.name + "ï¿½ï¿½" + target.name + "ï¿½ï¿½ï¿½Vï¿½Fï¿½ï¿½ï¿½tï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I");
                 if (MissFire)
                 {
-                    DestroyableSingleton<HudManager>.Instance.Chat.AddChat(sheriff, sheriff.name + "‚ÍŒë”š‚µ‚½I");
+                    DestroyableSingleton<HudManager>.Instance.Chat.AddChat(sheriff, sheriff.name + "ï¿½ÍŒë”šï¿½ï¿½ï¿½ï¿½ï¿½I");
                 } else
                 {
-                    DestroyableSingleton<HudManager>.Instance.Chat.AddChat(sheriff, sheriff.name + "‚Í¬Œ÷‚µ‚½I");
+                    DestroyableSingleton<HudManager>.Instance.Chat.AddChat(sheriff, sheriff.name + "ï¿½Íï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I");
                 }
             }
             if (MissFire)
@@ -250,7 +250,7 @@ namespace SuperNewRoles.CustomRPC
             {
                 foreach (PlayerVoteArea pva in MeetingHud.Instance.playerStates)
                 {
-                    if (pva.TargetPlayerId ==@SheriffId && MissFire)
+                    if (pva.TargetPlayerId == @SheriffId && MissFire)
                     {
                         pva.SetDead(pva.DidReport, true);
                         pva.Overlay.gameObject.SetActive(true);
